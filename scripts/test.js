@@ -19,7 +19,7 @@ var c501 = ["M. Dinca", "Y. Surendranath"];
 var c600 = ["J. V. Guttag"];
 var c601 = ["R. H. Heiner"];
 var database = [
-  cl00,
+  c100,
   c101,
   c200,
   c201,
