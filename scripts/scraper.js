@@ -1,8 +1,6 @@
 var request = require("request");
 var cheerio = require("cheerio");
 
-//var Professor = require("professor.js");
-
 
 //Define Professor class
 function Professor(name, avgRating)
@@ -13,6 +11,7 @@ function Professor(name, avgRating)
 
 
 var site = "https://www.ratemyprofessors.com";
+var school = "harvard";
 var professors = []; //Array to store professor objects
 
 var getId = function(professorObject,  _processID){
@@ -28,8 +27,8 @@ var getId = function(professorObject,  _processID){
 
 			if (!found){
 
-				var bamaProfessor = $(this).find("span.sub").text().toLowerCase().startsWith("university of alabama"); 
-				if (bamaProfessor){
+				var harvardProfessor = $(this).find("span.sub").text().toLowerCase().startsWith(school); 
+				if (harvardProfessor){
 					found = true;
 
 					var link = $(this).find("a").attr("href"); 
@@ -94,7 +93,7 @@ var baseFunction = function(professorNames){
 	return professors;
 }
 
-var professorNames = ["David Cordes", "Brandon Dixon"];
+var professorNames = ["Michael Porter", "Howard Gardner"];//["David Cordes", "Brandon Dixon"];
 outputtedProfs = baseFunction(professorNames);
 
 
