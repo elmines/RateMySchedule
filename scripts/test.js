@@ -55,10 +55,10 @@ button.onclick = function() {
     }
   }
   for (i = 0; i < 5; i++) {
-    document.getElementById("text").innerHTML = courses[i];
+    console.log(courses[i]);
     for (j = 1; j < course[i].length; j++) {
-      document.getElementById("text").innerHTML = courses[i][j];
+      console.log(courses[i][j]);
     }
-    document.getElementById("text").innerHTML = "---------------------";
+    console.log("---------------------");
   }
 };
