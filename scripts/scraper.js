@@ -11,7 +11,11 @@ function Professor(name, avgRating)
 
 
 var globalSite = "https://www.ratemyprofessors.com";
+
+
 var globalProfessors = []; //Array to store professor objects
+var globalProfessorsLoaded = 0;
+var globalProfessorsToLoad = 0;
 
 var getId = function(professorObject,  _processID){
 	searchURL = globalSite + "/search.jsp?query=";
@@ -57,11 +61,11 @@ var addRating = function(professorObject, id/*, _callback*/)
 			$("div.quality div.grade").each(function(index){
 				//console.log("Found a grade item on the screen.");
 				var rating = parseFloat($(this).text());
-				if (rating == NaN) rating = -1.0;
-				//console.log(rating);
+				if (rating == NaN) rating = -1.0; //console.log(rating);
 				professorObject.rating = rating;
 
-				debugProfessors();
+				++globalProfessorsLoaded;
+				if (globalProfessorsLoaded >= globalProfessorsToLoad) debugProfessors();
 
 			});
 	});
@@ -73,7 +77,7 @@ var debugProfessors = function()
 {
 	for (var i = 0; i < globalProfessors.length; ++i)
 	{
-		console.log("professors[" + i + "]: name=" + globalProfessors[i].name + ", rating=" + globalProfessors[i].rating);
+		console.log("name=" + globalProfessors[i].name + ", rating=" + globalProfessors[i].rating);
 	}
 }
 
@@ -92,7 +96,14 @@ var baseFunction = function(professorNames){
 	return globalProfessors;
 }
 
-var professorNames = ["David Jerison", "Arthur Mattuck"];
+
+//SPENCER'S PLACE TO EDIT
+
+console.log("MIT PROFESSOR RATINGS");
+var professorNames = ["David Jerison", "Arthur Mattuck", "Cathy Drennan", "Stanley Kowalski", "Patrick Winston", "Gordon Freeman"];
+globalProfessorsToLoad = professorNames.length;
+
+
 outputtedProfs = baseFunction(professorNames);
 
 
