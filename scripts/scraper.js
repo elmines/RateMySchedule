@@ -10,13 +10,12 @@ function Professor(name, avgRating)
 }
 
 
-var site = "https://www.ratemyprofessors.com";
-var school = "harvard";
-var professors = []; //Array to store professor objects
+var globalSite = "https://www.ratemyprofessors.com";
+var globalProfessors = []; //Array to store professor objects
 
 var getId = function(professorObject,  _processID){
-	searchURL = site + "/search.jsp?query=";
-	//console.log("professorObject.name = " + professorObject.name);
+	searchURL = globalSite + "/search.jsp?query=";
+	var school = "harvard";
 
 	request(searchURL + professorObject.name.replace(' ', '+'), function(error, response, body){
 		if (error) console.log(error);
@@ -47,7 +46,7 @@ var addRating = function(professorObject, id/*, _callback*/)
 
 	//console.log("addRating: Made request for professorObject.name = " + professorObject.name + ", id = " + id);
 
-	ratingPageURL = site + "/ShowRatings.jsp?tid=";
+	ratingPageURL = globalSite + "/ShowRatings.jsp?tid=";
 
 	request(ratingPageURL + id, function(error, response, body){
 
@@ -72,9 +71,9 @@ var addRating = function(professorObject, id/*, _callback*/)
 
 var debugProfessors = function()
 {
-	for (var i = 0; i < professors.length; ++i)
+	for (var i = 0; i < globalProfessors.length; ++i)
 	{
-		console.log("professors[" + i + "]: name=" + professors[i].name + ", rating=" + professors[i].rating);
+		console.log("professors[" + i + "]: name=" + globalProfessors[i].name + ", rating=" + globalProfessors[i].rating);
 	}
 }
 
@@ -82,22 +81,18 @@ var debugProfessors = function()
 var loadProfessorObjects = function(professorNames){
 	for (var i  = 0; i < professorNames.length; ++i)
 	{
-		professors.push(new Professor(professorNames[i], -1.0));
-		getId(professors[i], addRating);
+		globalProfessors.push(new Professor(professorNames[i], -1.0));
+		getId(globalProfessors[i], addRating);
 	}
 
 }
 
 var baseFunction = function(professorNames){
 	loadProfessorObjects(professorNames);
-	return professors;
+	return globalProfessors;
 }
 
-var professorNames = ["Michael Porter", "Howard Gardner"];//["David Cordes", "Brandon Dixon"];
+var professorNames = ["Michael Porter", "Howard Gardner"];
 outputtedProfs = baseFunction(professorNames);
 
 
-for (var i = 0; i < outputtedProfs.length; ++i)
-{
-	console.log(outputtedProfs[i].name + "-->" + outputtedProfs[i].rating);
-}
