@@ -15,7 +15,7 @@ var globalProfessors = []; //Array to store professor objects
 
 var getId = function(professorObject,  _processID){
 	searchURL = globalSite + "/search.jsp?query=";
-	var school = "harvard";
+	var school = "massachusetts institute of technology";
 
 	request(searchURL + professorObject.name.replace(' ', '+'), function(error, response, body){
 		if (error) console.log(error);
@@ -92,7 +92,7 @@ var baseFunction = function(professorNames){
 	return globalProfessors;
 }
 
-var professorNames = ["Michael Porter", "Howard Gardner"];
+var professorNames = ["David Jerison", "Arthur Mattuck"];
 outputtedProfs = baseFunction(professorNames);
 
 
